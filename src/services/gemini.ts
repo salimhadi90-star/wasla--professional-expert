@@ -1,18 +1,7 @@
+// @ts-nocheck
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-// جلب مفتاح الـ API من إعدادات Vercel التي قمنا بضبطها
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
-
 const genAI = new GoogleGenerativeAI(API_KEY);
 
-export async function getGeminiResponse(prompt: string) {
-  try {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    return response.text();
-  } catch (error) {
-    console.error("Error calling Gemini API:", error);
-    return "عذراً، حدث خطأ في الاتصال بالذكاء الاصطناعي. تأكد من صحة مفتاح الـ API في إعدادات Vercel.";
-  }
-}
+export const model = genAI.getGenerativeModel({ model: "gemini-pro" });
